@@ -1,0 +1,261 @@
+import mysql.connector
+mydb=mysql.connector.connect(
+host="localhost",
+user="root", password="",
+database="ems"
+)
+def create():
+    id,name,department,salary=input("Enter id,name,department and salary").split()
+    mycursor=mydb.cursor()
+    sql="insert into employees(id,name,department,salary) values(%s,%s,%s,%s)"
+    val=(id,name,department,salary)
+    mycursor.execute(sql,val)
+    mydb.commit()
+    print(mycursor.rowcount,"record inserted.")
+    mycursor.execute("select * from employees")
+    myresult=mycursor.fetchall()
+    for x in myresult:
+        print(x)
+    
+def read():
+    mycursor=mydb.cursor()
+    mycursor.execute("select * from employees")
+    myresult=mycursor.fetchall()
+    for x in myresult:
+        print(x)
+    
+
+
+def delete():
+    id=input("input id")
+    mycursor=mydb.cursor()
+    val=(id,)
+    mycursor.execute("delete from employees where id=%s",val)
+    mydb.commit()
+    print(mycursor.rowcount,"record deleted.")
+    mycursor.execute("select * from employees")
+    myresult=mycursor.fetchall()
+    for x in myresult:
+        print(x)
+
+def update():
+    id,department=input("Enter id and department:").split()
+    mycursor=mydb.cursor()
+    val=(department,id)
+    mycursor.execute("update employees set department=%s where id=%s",val)
+    mydb.commit()
+    print(mycursor.rowcount,"record updated.")
+    mycursor.execute("select * from employees")
+    myresult=mycursor.fetchall()
+    for x in myresult:
+        print(x)
+def sort():
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM employees ORDER BY department"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        print(x)
+        
+def sorta():
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM employees ORDER BY salary"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        print(x)
+def filtera():
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM employees WHERE department like '%elec'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        print(x)
+        
+        
+def filterab():
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM employees WHERE salary like 20000"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        print(x)
+   
+   
+    
+while True:
+    print("MENU DRIVEN OF FILE OPERATION")
+    print("1.INSERT INTO EMPLOYEE TABLE")
+    print("2.READ DATA FROM EMPLOYEE TABLE")
+    print("3.DELETE DATA FROM EMPLOYEE TABLE")
+    print("4.UPDATE DATA IN EMPLOYEE TABLE")
+    print("5.SORT DATA BY DEPARTMENT")
+    print("6.SORT DATA BY SALARY")
+    print("7.FILTER DATA BY DEPARTMENT")
+    print("8.FILTER DATA BY SALARY")
+    print("PRESS ANY OTHER KEY TO EXIT")
+    
+    choice = int(input("\nEnter the Choice: "))
+    if choice == 1:
+        create()
+    elif choice == 2:
+        read()
+    elif choice == 3:
+        delete()
+    elif choice == 4:
+        update()
+    elif choice == 5:
+        sort()
+    elif choice == 6:
+        sorta()
+    elif choice ==7:
+        filtera()
+    elif choice == 8:
+        filterab()
+    elif choice == 9:
+        break;
+    else:
+        print("invalid")
+
+
+
+MENU DRIVEN OF FILE OPERATION
+1.INSERT INTO EMPLOYEE TABLE
+2.READ DATA FROM EMPLOYEE TABLE
+3.DELETE DATA FROM EMPLOYEE TABLE
+4.UPDATE DATA IN EMPLOYEE TABLE
+5.SORT DATA BY DEPARTMENT
+6.SORT DATA BY SALARY
+7.FILTER DATA BY DEPARTMENT
+8.FILTER DATA BY SALARY
+PRESS ANY OTHER KEY TO EXIT
+
+Enter the Choice: 1
+Enter id,name,department and salary3 sm comput 45000
+1 record inserted.
+(1, 'raju', 'abc', 20000.0)
+(2, 'ramu', 'elec', 30000.0)
+(3, 'sm', 'comput', 45000.0)
+
+MENU DRIVEN OF FILE OPERATION
+1.INSERT INTO EMPLOYEE TABLE
+2.READ DATA FROM EMPLOYEE TABLE
+3.DELETE DATA FROM EMPLOYEE TABLE
+4.UPDATE DATA IN EMPLOYEE TABLE
+5.SORT DATA BY DEPARTMENT
+6.SORT DATA BY SALARY
+7.FILTER DATA BY DEPARTMENT
+8.FILTER DATA BY SALARY
+PRESS ANY OTHER KEY TO EXIT
+
+Enter the Choice: 7
+(2, 'ramu', 'elec', 30000.0)
+
+MENU DRIVEN OF FILE OPERATION
+1.INSERT INTO EMPLOYEE TABLE
+2.READ DATA FROM EMPLOYEE TABLE
+3.DELETE DATA FROM EMPLOYEE TABLE
+4.UPDATE DATA IN EMPLOYEE TABLE
+5.SORT DATA BY DEPARTMENT
+6.SORT DATA BY SALARY
+7.FILTER DATA BY DEPARTMENT
+8.FILTER DATA BY SALARY
+PRESS ANY OTHER KEY TO EXIT
+
+Enter the Choice: 8
+(1, 'raju', 'abc', 20000.0)
+
+MENU DRIVEN OF FILE OPERATION
+1.INSERT INTO EMPLOYEE TABLE
+2.READ DATA FROM EMPLOYEE TABLE
+3.DELETE DATA FROM EMPLOYEE TABLE
+4.UPDATE DATA IN EMPLOYEE TABLE
+5.SORT DATA BY DEPARTMENT
+6.SORT DATA BY SALARY
+7.FILTER DATA BY DEPARTMENT
+8.FILTER DATA BY SALARY
+PRESS ANY OTHER KEY TO EXIT
+
+Enter the Choice: 2
+(1, 'raju', 'abc', 20000.0)
+(2, 'ramu', 'elec', 30000.0)
+(3, 'sm', 'comput', 45000.0)
+
+MENU DRIVEN OF FILE OPERATION
+1.INSERT INTO EMPLOYEE TABLE
+2.READ DATA FROM EMPLOYEE TABLE
+3.DELETE DATA FROM EMPLOYEE TABLE
+4.UPDATE DATA IN EMPLOYEE TABLE
+5.SORT DATA BY DEPARTMENT
+6.SORT DATA BY SALARY
+7.FILTER DATA BY DEPARTMENT
+8.FILTER DATA BY SALARY
+PRESS ANY OTHER KEY TO EXIT
+
+Enter the Choice: 5
+(1, 'raju', 'abc', 20000.0)
+(3, 'sm', 'comput', 45000.0)
+(2, 'ramu', 'elec', 30000.0)
+
+MENU DRIVEN OF FILE OPERATION
+1.INSERT INTO EMPLOYEE TABLE
+2.READ DATA FROM EMPLOYEE TABLE
+3.DELETE DATA FROM EMPLOYEE TABLE
+4.UPDATE DATA IN EMPLOYEE TABLE
+5.SORT DATA BY DEPARTMENT
+6.SORT DATA BY SALARY
+7.FILTER DATA BY DEPARTMENT
+8.FILTER DATA BY SALARY
+PRESS ANY OTHER KEY TO EXIT
+
+Enter the Choice: 6
+(1, 'raju', 'abc', 20000.0)
+(2, 'ramu', 'elec', 30000.0)
+(3, 'sm', 'comput', 45000.0)
+
+MENU DRIVEN OF FILE OPERATION
+1.INSERT INTO EMPLOYEE TABLE
+2.READ DATA FROM EMPLOYEE TABLE
+3.DELETE DATA FROM EMPLOYEE TABLE
+4.UPDATE DATA IN EMPLOYEE TABLE
+5.SORT DATA BY DEPARTMENT
+6.SORT DATA BY SALARY
+7.FILTER DATA BY DEPARTMENT
+8.FILTER DATA BY SALARY
+PRESS ANY OTHER KEY TO EXIT
+
+Enter the Choice: 4
+Enter id and department:2 cmv
+1 record updated.
+(1, 'raju', 'abc', 20000.0)
+(2, 'ramu', 'cmv', 30000.0)
+(3, 'sm', 'comput', 45000.0)
+
+MENU DRIVEN OF FILE OPERATION
+1.INSERT INTO EMPLOYEE TABLE
+2.READ DATA FROM EMPLOYEE TABLE
+3.DELETE DATA FROM EMPLOYEE TABLE
+4.UPDATE DATA IN EMPLOYEE TABLE
+5.SORT DATA BY DEPARTMENT
+6.SORT DATA BY SALARY
+7.FILTER DATA BY DEPARTMENT
+8.FILTER DATA BY SALARY
+PRESS ANY OTHER KEY TO EXIT
+
+Enter the Choice: 3
+input id1
+1 record deleted.
+(2, 'ramu', 'cmv', 30000.0)
+(3, 'sm', 'comput', 45000.0)
+
+MENU DRIVEN OF FILE OPERATION
+1.INSERT INTO EMPLOYEE TABLE
+2.READ DATA FROM EMPLOYEE TABLE
+3.DELETE DATA FROM EMPLOYEE TABLE
+4.UPDATE DATA IN EMPLOYEE TABLE
+5.SORT DATA BY DEPARTMENT
+6.SORT DATA BY SALARY
+7.FILTER DATA BY DEPARTMENT
+8.FILTER DATA BY SALARY
+PRESS ANY OTHER KEY TO EXIT
+
